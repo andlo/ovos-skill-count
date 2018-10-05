@@ -15,9 +15,12 @@ class Count(MycroftSkill):
                 self.speak(str(i))
             self.speak_dialog("count_stop")
             pass
-        else:
+        except:
             self.speak_dialog("count_error")
-
+try:
+    pass
+except expression as identifier:
+    pass
     @intent_file_handler('countdown.intent')
     def handle_countdown_intent(self, message):
         try:
@@ -28,7 +31,7 @@ class Count(MycroftSkill):
                 self.speak(str(i))
             self.speak_dialog("countdown_stop")
             pass
-        else:
+        except:
             self.speak_dialog("count_error")
 
 def create_skill():
