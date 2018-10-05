@@ -7,7 +7,7 @@ class Count(MycroftSkill):
 
     @intent_file_handler('count.intent')
     def handle_count(self, message):
-        number = int(message.data.get("number"))
+        number = message.data.get("number")
         response = {'number': message.data.get("number")}
         self.speak_dialog("count_start", data=response)
         for i in range(start_number-1,0,-1):
@@ -16,8 +16,7 @@ class Count(MycroftSkill):
 
     @intent_file_handler('countdown.intent')
     def handle_countdown_intent(self, message):
-        number = int(message.data.get("number"))
-#        start_number = 10
+        number = message.data.get("number")
         response = {'number': message.data.get("number")}
         self.speak_dialog("countdown_start", data=response)
         for i in range(start_number-1,0,-1):
