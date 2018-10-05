@@ -27,6 +27,7 @@ class Count(MycroftSkill):
             for i in range(number,0,-1):
                 self.speak(str(i))
             self.speak_dialog("countdown_stop")
+            pass
         else:
             self.speak_dialog("count_error")
 
