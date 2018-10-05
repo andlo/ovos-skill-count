@@ -19,7 +19,7 @@ class Count(MycroftSkill):
         number = int(message.data.get("number"))
         response = {'number': message.data.get("number")}
         self.speak_dialog("countdown_start", data=response)
-        for i in range(number-1,0,-1):
+        for i in range(number,0,-1):
             self.speak(str(i))
         self.speak_dialog("countdown_stop")
 
