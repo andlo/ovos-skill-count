@@ -17,10 +17,7 @@ class Count(MycroftSkill):
             pass
         except:
             self.speak_dialog("count_error")
-try:
-    pass
-except expression as identifier:
-    pass
+
     @intent_file_handler('countdown.intent')
     def handle_countdown_intent(self, message):
         try:
