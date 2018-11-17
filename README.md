@@ -1,5 +1,5 @@
 # <img src='https://rawgithub.com/FortAwesome/Font-Awesome/master/advanced-options/raw-svg/solid/rocket.svg' card_color='#DB4040' width='50' height='50' style='vertical-align:bottom'/> Count
-Count and countdown skill.
+Count and countdown skill...
 
 ## About
 This skill lets Mycroft do counting to a number or and countdown from a number.
