@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from mycroft import MycroftSkill, intent_file_handler
 from mycroft.audio import wait_while_speaking
+from mycroft.util.parse import extract_number
 
 
 class Count(MycroftSkill):
@@ -28,7 +29,7 @@ class Count(MycroftSkill):
     def handle_count(self, message):
         self.stop_requested = False
         try:
-            number = int(message.data.get("number"))
+            number = int(extract_number(message.data.get("number")))
             response = {'number': message.data.get("number")}
             self.speak_dialog("count_start", data=response)
             for i in range(1, number+1, +1):
@@ -45,7 +46,7 @@ class Count(MycroftSkill):
     def handle_countdown_intent(self, message):
         self.stop_requested = False
         try:
-            number = int(message.data.get("number"))
+            number = int(extract_number(message.data.get("number")))
             response = {'number': message.data.get("number")}
             self.speak_dialog("countdown_start", data=response)
             for i in range(number, 0, -1):
