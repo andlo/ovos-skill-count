@@ -5,6 +5,7 @@ Count and countdown skill
 ## About
 This skill lets Mycroft do counting to a number or and countdown from a number.
 
+
 ## Examples
 * "Count to 10"
 * "Countdown from 10"
