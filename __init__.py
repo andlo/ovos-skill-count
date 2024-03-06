@@ -15,54 +15,53 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from mycroft import MycroftSkill, intent_file_handler
-from mycroft.audio import wait_while_speaking
-from mycroft.util.parse import extract_number
+
+from lingua_franca.parse import extract_number
+from ovos_workshop.decorators import intent_handler
+from ovos_workshop.skills import OVOSSkill
 
 
-class Count(MycroftSkill):
-    def __init__(self):
-        MycroftSkill.__init__(self)
-        self.stop_requested = False
+class Count(OVOSSkill):
 
-    @intent_file_handler('count.intent')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.counting = False
+
+    @intent_handler('count.intent')
     def handle_count(self, message):
-        self.stop_requested = False
+        self.counting = True
         try:
             number = int(extract_number(message.data.get("number")))
             response = {'number': message.data.get("number")}
             self.speak_dialog("count_start", data=response)
-            for i in range(1, number+1, +1):
-                if self.stop_requested:
+            for i in range(1, number + 1, +1):
+                if not self.counting:
                     break
-                self.speak(str(i) + " .")
-                wait_while_speaking()
-            if not self.stop_requested:
+                self.speak(str(i) + " .", wait=True)
+            if self.counting:
                 self.speak_dialog("count_stop")
         except:
             self.speak_dialog("count_error")
 
-    @intent_file_handler('countdown.intent')
+    @intent_handler('countdown.intent')
     def handle_countdown_intent(self, message):
-        self.stop_requested = False
+        self.counting = True
         try:
             number = int(extract_number(message.data.get("number")))
             response = {'number': message.data.get("number")}
             self.speak_dialog("countdown_start", data=response)
             for i in range(number, 0, -1):
-                if self.stop_requested:
+                if not self.counting:
                     break
-                self.speak(str(i) + " .")
-                wait_while_speaking()
-            if not self.stop_requested:
+                self.speak(str(i) + " .", wait=True)
+            if self.counting:
                 self.speak_dialog("countdown_stop")
         except:
             self.speak_dialog("count_error")
+        self.counting = False
 
     def stop(self):
-        self.stop_requested = True
-
-
-
-def create_skill():
-    return Count()
+        if self.counting:
+            self.counting = False
+            return True
+        return False
